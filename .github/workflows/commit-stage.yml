@@ -33,4 +33,4 @@ jobs:
       - name: Build, unit tests and integration tests
         run: |
           cd catalog-service-jpa
-          mvn clean install
+          mvn clean install -DskipTests
