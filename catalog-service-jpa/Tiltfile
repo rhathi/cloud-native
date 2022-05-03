@@ -1,0 +1,11 @@
+allow_k8s_contexts('gke_anthos-book-322415_asia-southeast1-a_anthos-cluster')
+custom_build(
+    ref = 'catalog-service',
+    command = 'mvn spring-boot:build-image -Dspring-boot.build-image.imageName=gcr.io/anthos-book-322415/catalog-service -DskipTests, docker push gcr.io/anthos-book-322415/catalog-service',
+    skips_local_docker=True,
+    deps = ['pom.xml', 'src']
+)
+
+k8s_yaml(['k8s/deployment.yaml', 'k8s/service.yaml'])
+
+k8s_resource('catalog-service', port_forwards=['9001'])  
